@@ -75,95 +75,271 @@ def Calcularven1(pAtual, pNovo):
 
     return "FIM"
 def Calcularven2(pAtual, pNovo):
-    # RETIRANDO UMA DIA DO PLANO ATUAL AQUI POIS ELE ENTRA EM CONTATO ANTES DO VENCIMENTO
-    if data_hoje.day <= 10:
-        Day = data_hoje.day + 19
-        DayPlAtual = (data_hoje.day + 19) * globals()[f"plan{pAtual}"]()
-        RestanteDayNovo = 31 - (data_hoje.day + 20)
-        DayPlNovo = (31 - (data_hoje.day + 20)) * globals()[f"plan{pNovo}"]()
+    if data_hoje.day != 1:
+        if data_hoje.month != 1:
+            # RETIRANDO UMA DIA DO PLANO ATUAL AQUI POIS ELE ENTRA EM CONTATO ANTES DO VENCIMENTO
+            if data_hoje.day <= 10:
+                Day = data_hoje.day + 19
+                DayPlAtual = (data_hoje.day + 19) * globals()[f"plan{pAtual}"]()
+                RestanteDayNovo = 31 - (data_hoje.day + 20)
+                DayPlNovo = (31 - (data_hoje.day + 20)) * globals()[f"plan{pNovo}"]()
 
-        ValorTotal = DayPlAtual + DayPlNovo
+                ValorTotal = DayPlAtual + DayPlNovo
 
-        IniConsumo = date(date.today().year, date.today().month - 1, 11)
-        IniConsumoBr = IniConsumo.strftime("%d/%m/%Y")
-        Ate = date(date.today().year, date.today().month, data_hoje.day - 1)
-        AteBr = Ate.strftime("%d/%m/%Y")
+                IniConsumo = date(date.today().year, date.today().month - 1, 11)
+                IniConsumoBr = IniConsumo.strftime("%d/%m/%Y")
+                Ate = date(date.today().year, date.today().month, data_hoje.day - 1)
+                AteBr = Ate.strftime("%d/%m/%Y")
 
-        FinalConusmo = date(data_hoje.year, data_hoje.month, 10)
-        FinalConusmoBr = FinalConusmo.strftime("%d/%m/%Y")
+                FinalConusmo = date(data_hoje.year, data_hoje.month, 10)
+                FinalConusmoBr = FinalConusmo.strftime("%d/%m/%Y")
 
-        r = f"{IniConsumoBr} -- {AteBr} são {Day} dias totalizando: {DayPlAtual:.2f} \n{data_hoje.strftime('%d/%m/%Y')} -- {FinalConusmoBr} são {RestanteDayNovo} totalizando: {DayPlNovo:.2f}.\nO valor final será: {ValorTotal:.2f}.\nCom 10% será: {ValorTotal - (ValorTotal * 0.1):.2f}.\nDesconto de: {ValorTotal * 0.1:.2f}  "
-        resultado_text.delete(1.0, tk.END)  # Limpar o conteúdo atual
-        resultado_text.insert(tk.END, r)
-        return "FIM"
-    # RETIRANDO UMA DIA DO PLANO NOVO AQUI POIS ELE ENTRA EM CONTATO DEPOIS DO VENCIMENTO
-    elif data_hoje.day >= 10:
-        Day = data_hoje.day - 10
-        DayPlAtual = (data_hoje.day - 10) * globals()[f"plan{pAtual}"]()
-        RestanteDayNovo = 30 - (data_hoje.day - 10)
-        DayPlNovo = (30 - (data_hoje.day - 10)) * globals()[f"plan{pNovo}"]()
+                r = f"{IniConsumoBr} -- {AteBr} são {Day} dias totalizando: {DayPlAtual:.2f} \n{data_hoje.strftime('%d/%m/%Y')} -- {FinalConusmoBr} são {RestanteDayNovo} totalizando: {DayPlNovo:.2f}.\nO valor final será: {ValorTotal:.2f}.\nCom 10% será: {ValorTotal - (ValorTotal * 0.1):.2f}.\nDesconto de: {ValorTotal * 0.1:.2f}  "
+                resultado_text.delete(1.0, tk.END)  # Limpar o conteúdo atual
+                resultado_text.insert(tk.END, r)
+                return "FIM"
+            # RETIRANDO UMA DIA DO PLANO NOVO AQUI POIS ELE ENTRA EM CONTATO DEPOIS DO VENCIMENTO
+            elif data_hoje.day >= 10:
+                Day = data_hoje.day - 10
+                DayPlAtual = (data_hoje.day - 10) * globals()[f"plan{pAtual}"]()
+                RestanteDayNovo = 30 - (data_hoje.day - 10)
+                DayPlNovo = (30 - (data_hoje.day - 10)) * globals()[f"plan{pNovo}"]()
 
-        ValorTotal = DayPlAtual + DayPlNovo
+                ValorTotal = DayPlAtual + DayPlNovo
 
-        IniConsumo = date(date.today().year, date.today().month, 11)
-        IniConsumoBr = IniConsumo.strftime("%d/%m/%Y")
-        Ate = date(date.today().year, date.today().month, data_hoje.day - 1)
-        AteBr = Ate.strftime("%d/%m/%Y")
+                IniConsumo = date(date.today().year, date.today().month, 11)
+                IniConsumoBr = IniConsumo.strftime("%d/%m/%Y")
+                Ate = date(date.today().year, date.today().month, data_hoje.day - 1)
+                AteBr = Ate.strftime("%d/%m/%Y")
 
-        ProxAtual = (data_hoje.month % 12) + 1
-        FinalConusmo = date(data_hoje.year + 1 if ProxAtual == 1 else data_hoje.year, ProxAtual, 10)
-        FinalConusmoBr = FinalConusmo.strftime("%d/%m/%Y")
+                ProxAtual = (data_hoje.month % 12) + 1
+                FinalConusmo = date(data_hoje.year + 1 if ProxAtual == 1 else data_hoje.year, ProxAtual, 10)
+                FinalConusmoBr = FinalConusmo.strftime("%d/%m/%Y")
 
-        r = f"{IniConsumoBr} -- {AteBr} são {Day} dias totalizando: {DayPlAtual:.2f} \n{data_hoje.strftime('%d/%m/%Y')} -- {FinalConusmoBr} são {RestanteDayNovo} totalizando: {DayPlNovo:.2f}.\nO valor final será: {ValorTotal:.2f}.\nCom 10% será: {ValorTotal - (ValorTotal * 0.1):.2f}.\nDesconto de: {ValorTotal * 0.1:.2f}"
-        resultado_text.delete(1.0, tk.END)  # Limpar o conteúdo atual
-        resultado_text.insert(tk.END, r)
-        return "FIM"
+                r = f"{IniConsumoBr} -- {AteBr} são {Day} dias totalizando: {DayPlAtual:.2f} \n{data_hoje.strftime('%d/%m/%Y')} -- {FinalConusmoBr} são {RestanteDayNovo} totalizando: {DayPlNovo:.2f}.\nO valor final será: {ValorTotal:.2f}.\nCom 10% será: {ValorTotal - (ValorTotal * 0.1):.2f}.\nDesconto de: {ValorTotal * 0.1:.2f}"
+                resultado_text.delete(1.0, tk.END)  # Limpar o conteúdo atual
+                resultado_text.insert(tk.END, r)
+                return "FIM"
+        else:
+            # RETIRANDO UMA DIA DO PLANO ATUAL AQUI POIS ELE ENTRA EM CONTATO ANTES DO VENCIMENTO
+            if data_hoje.day <= 10:
+                Day = data_hoje.day + 19
+                DayPlAtual = (data_hoje.day + 19) * globals()[f"plan{pAtual}"]()
+                RestanteDayNovo = 31 - (data_hoje.day + 20)
+                DayPlNovo = (31 - (data_hoje.day + 20)) * globals()[f"plan{pNovo}"]()
+
+                ValorTotal = DayPlAtual + DayPlNovo
+
+                IniConsumo = date(date.today().year, 12, 11)
+                IniConsumoBr = IniConsumo.strftime("%d/%m/%Y")
+                Ate = date(date.today().year, date.today().month, data_hoje.day - 1)
+                AteBr = Ate.strftime("%d/%m/%Y")
+
+                FinalConusmo = date(data_hoje.year, data_hoje.month, 10)
+                FinalConusmoBr = FinalConusmo.strftime("%d/%m/%Y")
+
+                r = f"{IniConsumoBr} -- {AteBr} são {Day} dias totalizando: {DayPlAtual:.2f} \n{data_hoje.strftime('%d/%m/%Y')} -- {FinalConusmoBr} são {RestanteDayNovo} totalizando: {DayPlNovo:.2f}.\nO valor final será: {ValorTotal:.2f}.\nCom 10% será: {ValorTotal - (ValorTotal * 0.1):.2f}.\nDesconto de: {ValorTotal * 0.1:.2f}  "
+                resultado_text.delete(1.0, tk.END)  # Limpar o conteúdo atual
+                resultado_text.insert(tk.END, r)
+                return "FIM"
+            # RETIRANDO UMA DIA DO PLANO NOVO AQUI POIS ELE ENTRA EM CONTATO DEPOIS DO VENCIMENTO
+            elif data_hoje.day >= 10:
+                Day = data_hoje.day - 10
+                DayPlAtual = (data_hoje.day - 10) * globals()[f"plan{pAtual}"]()
+                RestanteDayNovo = 30 - (data_hoje.day - 10)
+                DayPlNovo = (30 - (data_hoje.day - 10)) * globals()[f"plan{pNovo}"]()
+
+                ValorTotal = DayPlAtual + DayPlNovo
+
+                IniConsumo = date(date.today().year, date.today().month, 11)
+                IniConsumoBr = IniConsumo.strftime("%d/%m/%Y")
+                Ate = date(date.today().year, date.today().month, data_hoje.day - 1)
+                AteBr = Ate.strftime("%d/%m/%Y")
+
+                ProxAtual = (data_hoje.month % 12) + 1
+                FinalConusmo = date(data_hoje.year + 1 if ProxAtual == 1 else data_hoje.year, ProxAtual, 10)
+                FinalConusmoBr = FinalConusmo.strftime("%d/%m/%Y")
+
+                r = f"{IniConsumoBr} -- {AteBr} são {Day} dias totalizando: {DayPlAtual:.2f} \n{data_hoje.strftime('%d/%m/%Y')} -- {FinalConusmoBr} são {RestanteDayNovo} totalizando: {DayPlNovo:.2f}.\nO valor final será: {ValorTotal:.2f}.\nCom 10% será: {ValorTotal - (ValorTotal * 0.1):.2f}.\nDesconto de: {ValorTotal * 0.1:.2f}"
+                resultado_text.delete(1.0, tk.END)  # Limpar o conteúdo atual
+                resultado_text.insert(tk.END, r)
+                return "FIM"
+    else:
+        if data_hoje.month != 1:
+            # RETIRANDO UMA DIA DO PLANO ATUAL AQUI POIS ELE ENTRA EM CONTATO ANTES DO VENCIMENTO
+                Day = data_hoje.day + 19
+                DayPlAtual = (data_hoje.day + 19) * globals()[f"plan{pAtual}"]()
+                RestanteDayNovo = 31 - (data_hoje.day + 20)
+                DayPlNovo = (31 - (data_hoje.day + 20)) * globals()[f"plan{pNovo}"]()
+
+                ValorTotal = DayPlAtual + DayPlNovo
+
+                IniConsumo = date(date.today().year, date.today().month - 1, 11)
+                IniConsumoBr = IniConsumo.strftime("%d/%m/%Y")
+                Ate = date(date.today().year, date.today().month, data_hoje.day)
+                AteBr = Ate.strftime("%d/%m/%Y")
+
+                FinalConusmo = date(data_hoje.year, data_hoje.month, 10)
+                FinalConusmoBr = FinalConusmo.strftime("%d/%m/%Y")
+
+                r = f"{IniConsumoBr} -- {AteBr} são {Day} dias totalizando: {DayPlAtual:.2f} \n{data_hoje.strftime('%d/%m/%Y')} -- {FinalConusmoBr} são {RestanteDayNovo} totalizando: {DayPlNovo:.2f}.\nO valor final será: {ValorTotal:.2f}.\nCom 10% será: {ValorTotal - (ValorTotal * 0.1):.2f}.\nDesconto de: {ValorTotal * 0.1:.2f}  "
+                resultado_text.delete(1.0, tk.END)  # Limpar o conteúdo atual
+                resultado_text.insert(tk.END, r)
+                return "FIM"
+        else:
+                Day = data_hoje.day + 19
+                DayPlAtual = (data_hoje.day + 19) * globals()[f"plan{pAtual}"]()
+                RestanteDayNovo = 31 - (data_hoje.day + 20)
+                DayPlNovo = (31 - (data_hoje.day + 20)) * globals()[f"plan{pNovo}"]()
+
+                ValorTotal = DayPlAtual + DayPlNovo
+
+                IniConsumo = date(date.today().year, 12, 11)
+                IniConsumoBr = IniConsumo.strftime("%d/%m/%Y")
+                Ate = date(date.today().year, date.today().month, data_hoje.day)
+                AteBr = Ate.strftime("%d/%m/%Y")
+
+                FinalConusmo = date(data_hoje.year, data_hoje.month, 10)
+                FinalConusmoBr = FinalConusmo.strftime("%d/%m/%Y")
+
+                r = f"{IniConsumoBr} -- {AteBr} são {Day} dias totalizando: {DayPlAtual:.2f} \n{data_hoje.strftime('%d/%m/%Y')} -- {FinalConusmoBr} são {RestanteDayNovo} totalizando: {DayPlNovo:.2f}.\nO valor final será: {ValorTotal:.2f}.\nCom 10% será: {ValorTotal - (ValorTotal * 0.1):.2f}.\nDesconto de: {ValorTotal * 0.1:.2f}  "
+                resultado_text.delete(1.0, tk.END)  # Limpar o conteúdo atual
+                resultado_text.insert(tk.END, r)
+                return "FIM"
+    return "FIM"
 def Calcularven3(pAtual, pNovo):
-    # RETIRANDO UMA DIA DO PLANO ATUAL AQUI POIS ELE ENTRA EM CONTATO ANTES DO VENCIMENTO
-    if data_hoje.day <= 20:
-        Day = data_hoje.day + 9
-        DayPlAtual = (data_hoje.day + 9) * globals()[f"plan{pAtual}"]()
-        RestanteDayNovo = 31 - (data_hoje.day + 10)
-        DayPlNovo = (31 - (data_hoje.day + 10)) * globals()[f"plan{pNovo}"]()
+    if data_hoje.day != 1:
+        if data_hoje.month != 1:
+            # RETIRANDO UMA DIA DO PLANO ATUAL AQUI POIS ELE ENTRA EM CONTATO ANTES DO VENCIMENTO
+            if data_hoje.day <= 20:
+                Day = data_hoje.day + 9
+                DayPlAtual = (data_hoje.day + 9) * globals()[f"plan{pAtual}"]()
+                RestanteDayNovo = 31 - (data_hoje.day + 10)
+                DayPlNovo = (31 - (data_hoje.day + 10)) * globals()[f"plan{pNovo}"]()
 
-        ValorTotal = DayPlAtual + DayPlNovo
+                ValorTotal = DayPlAtual + DayPlNovo
 
-        IniConsumo = date(date.today().year, date.today().month - 1, 21)
-        IniConsumoBr = IniConsumo.strftime("%d/%m/%Y")
-        Ate = date(date.today().year, date.today().month, data_hoje.day - 1)
-        AteBr = Ate.strftime("%d/%m/%Y")
+                IniConsumo = date(date.today().year, date.today().month - 1, 21)
+                IniConsumoBr = IniConsumo.strftime("%d/%m/%Y")
+                Ate = date(date.today().year, date.today().month, data_hoje.day - 1)
+                AteBr = Ate.strftime("%d/%m/%Y")
 
-        FinalConusmo = date(data_hoje.year, data_hoje.month, 20)
-        FinalConusmoBr = FinalConusmo.strftime("%d/%m/%Y")
+                FinalConusmo = date(data_hoje.year, data_hoje.month, 20)
+                FinalConusmoBr = FinalConusmo.strftime("%d/%m/%Y")
 
-        r = f"{IniConsumoBr} -- {AteBr} são {Day} dias totalizando: {DayPlAtual:.2f} \n{data_hoje.strftime('%d/%m/%Y')} -- {FinalConusmoBr} são {RestanteDayNovo} totalizando: {DayPlNovo:.2f}.\nO valor final será: {ValorTotal:.2f}.\nCom 10% será: {ValorTotal - (ValorTotal * 0.1):.2f}.\nDesconto de: {ValorTotal * 0.1:.2f}  "
-        resultado_text.delete(1.0, tk.END)  # Limpar o conteúdo atual
-        resultado_text.insert(tk.END, r)
-        return "FIM"
+                r = f"{IniConsumoBr} -- {AteBr} são {Day} dias totalizando: {DayPlAtual:.2f} \n{data_hoje.strftime('%d/%m/%Y')} -- {FinalConusmoBr} são {RestanteDayNovo} totalizando: {DayPlNovo:.2f}.\nO valor final será: {ValorTotal:.2f}.\nCom 10% será: {ValorTotal - (ValorTotal * 0.1):.2f}.\nDesconto de: {ValorTotal * 0.1:.2f}  "
+                resultado_text.delete(1.0, tk.END)  # Limpar o conteúdo atual
+                resultado_text.insert(tk.END, r)
+                return "FIM"
+            # RETIRANDO UMA DIA DO PLANO NOVO AQUI POIS ELE ENTRA EM CONTATO DEPOIS DO VENCIMENTO
+            elif data_hoje.day >= 20:
+                Day = data_hoje.day - 20
+                DayPlAtual = (data_hoje.day - 20) * globals()[f"plan{pAtual}"]()
+                RestanteDayNovo = 30 - (data_hoje.day - 20)
+                DayPlNovo = (30 - (data_hoje.day - 20)) * globals()[f"plan{pNovo}"]()
 
+                ValorTotal = DayPlAtual + DayPlNovo
 
-    # RETIRANDO UMA DIA DO PLANO NOVO AQUI POIS ELE ENTRA EM CONTATO DEPOIS DO VENCIMENTO
-    elif data_hoje.day >= 20:
-        Day = data_hoje.day - 20
-        DayPlAtual = (data_hoje.day - 20) * globals()[f"plan{pAtual}"]()
-        RestanteDayNovo = 30 - (data_hoje.day - 20)
-        DayPlNovo = (30 - (data_hoje.day - 20)) * globals()[f"plan{pNovo}"]()
+                IniConsumo = date(date.today().year, date.today().month, 21)
+                IniConsumoBr = IniConsumo.strftime("%d/%m/%Y")
+                Ate = date(date.today().year, date.today().month, data_hoje.day - 1)
+                AteBr = Ate.strftime("%d/%m/%Y")
 
-        ValorTotal = DayPlAtual + DayPlNovo
+                ProxAtual = (data_hoje.month % 12) + 1
+                FinalConusmo = date(data_hoje.year + 1 if ProxAtual == 1 else data_hoje.year, ProxAtual, 20)
+                FinalConusmoBr = FinalConusmo.strftime("%d/%m/%Y")
 
-        IniConsumo = date(date.today().year, date.today().month, 21)
-        IniConsumoBr = IniConsumo.strftime("%d/%m/%Y")
-        Ate = date(date.today().year, date.today().month, data_hoje.day - 1)
-        AteBr = Ate.strftime("%d/%m/%Y")
+                r = f"{IniConsumoBr} -- {AteBr} são {Day} dias totalizando: {DayPlAtual:.2f} \n{data_hoje.strftime('%d/%m/%Y')} -- {FinalConusmoBr} são {RestanteDayNovo} totalizando: {DayPlNovo:.2f}.\nO valor final será: {ValorTotal:.2f}.\nCom 10% será: {ValorTotal - (ValorTotal * 0.1):.2f}.\nDesconto de: {ValorTotal * 0.1:.2f} "
+                resultado_text.delete(1.0, tk.END)  # Limpar o conteúdo atual
+                resultado_text.insert(tk.END, r)
+                return "FIM"
+        else:
+            # RETIRANDO UMA DIA DO PLANO ATUAL AQUI POIS ELE ENTRA EM CONTATO ANTES DO VENCIMENTO
+            if data_hoje.day <= 20:
+                Day = data_hoje.day + 9
+                DayPlAtual = (data_hoje.day + 9) * globals()[f"plan{pAtual}"]()
+                RestanteDayNovo = 31 - (data_hoje.day + 10)
+                DayPlNovo = (31 - (data_hoje.day + 10)) * globals()[f"plan{pNovo}"]()
 
-        ProxAtual = (data_hoje.month % 12) + 1
-        FinalConusmo = date(data_hoje.year + 1 if ProxAtual == 1 else data_hoje.year, ProxAtual, 20)
-        FinalConusmoBr = FinalConusmo.strftime("%d/%m/%Y")
+                ValorTotal = DayPlAtual + DayPlNovo
 
-        r = f"{IniConsumoBr} -- {AteBr} são {Day} dias totalizando: {DayPlAtual:.2f} \n{data_hoje.strftime('%d/%m/%Y')} -- {FinalConusmoBr} são {RestanteDayNovo} totalizando: {DayPlNovo:.2f}.\nO valor final será: {ValorTotal:.2f}.\nCom 10% será: {ValorTotal - (ValorTotal * 0.1):.2f}.\nDesconto de: {ValorTotal * 0.1:.2f} "
-        resultado_text.delete(1.0, tk.END)  # Limpar o conteúdo atual
-        resultado_text.insert(tk.END, r)
-        return "FIM"
+                IniConsumo = date(date.today().year, 12, 21)
+                IniConsumoBr = IniConsumo.strftime("%d/%m/%Y")
+                Ate = date(date.today().year, date.today().month, data_hoje.day - 1)
+                AteBr = Ate.strftime("%d/%m/%Y")
+
+                FinalConusmo = date(data_hoje.year, data_hoje.month, 20)
+                FinalConusmoBr = FinalConusmo.strftime("%d/%m/%Y")
+
+                r = f"{IniConsumoBr} -- {AteBr} são {Day} dias totalizando: {DayPlAtual:.2f} \n{data_hoje.strftime('%d/%m/%Y')} -- {FinalConusmoBr} são {RestanteDayNovo} totalizando: {DayPlNovo:.2f}.\nO valor final será: {ValorTotal:.2f}.\nCom 10% será: {ValorTotal - (ValorTotal * 0.1):.2f}.\nDesconto de: {ValorTotal * 0.1:.2f}  "
+                resultado_text.delete(1.0, tk.END)  # Limpar o conteúdo atual
+                resultado_text.insert(tk.END, r)
+                return "FIM"
+            # RETIRANDO UMA DIA DO PLANO NOVO AQUI POIS ELE ENTRA EM CONTATO DEPOIS DO VENCIMENTO
+            elif data_hoje.day >= 20:
+                Day = data_hoje.day - 20
+                DayPlAtual = (data_hoje.day - 20) * globals()[f"plan{pAtual}"]()
+                RestanteDayNovo = 30 - (data_hoje.day - 20)
+                DayPlNovo = (30 - (data_hoje.day - 20)) * globals()[f"plan{pNovo}"]()
+
+                ValorTotal = DayPlAtual + DayPlNovo
+
+                IniConsumo = date(date.today().year, 12, 21)
+                IniConsumoBr = IniConsumo.strftime("%d/%m/%Y")
+                Ate = date(date.today().year, date.today().month, data_hoje.day - 1)
+                AteBr = Ate.strftime("%d/%m/%Y")
+
+                ProxAtual = (data_hoje.month % 12) + 1
+                FinalConusmo = date(data_hoje.year + 1 if ProxAtual == 1 else data_hoje.year, ProxAtual, 20)
+                FinalConusmoBr = FinalConusmo.strftime("%d/%m/%Y")
+
+                r = f"{IniConsumoBr} -- {AteBr} são {Day} dias totalizando: {DayPlAtual:.2f} \n{data_hoje.strftime('%d/%m/%Y')} -- {FinalConusmoBr} são {RestanteDayNovo} totalizando: {DayPlNovo:.2f}.\nO valor final será: {ValorTotal:.2f}.\nCom 10% será: {ValorTotal - (ValorTotal * 0.1):.2f}.\nDesconto de: {ValorTotal * 0.1:.2f} "
+                resultado_text.delete(1.0, tk.END)  # Limpar o conteúdo atual
+                resultado_text.insert(tk.END, r)
+                return "FIM"
+    else:
+        if data_hoje.month != 1:
+            if data_hoje.day <= 20:
+                Day = data_hoje.day + 9
+                DayPlAtual = (data_hoje.day + 9) * globals()[f"plan{pAtual}"]()
+                RestanteDayNovo = 31 - (data_hoje.day + 10)
+                DayPlNovo = (31 - (data_hoje.day + 10)) * globals()[f"plan{pNovo}"]()
+
+                ValorTotal = DayPlAtual + DayPlNovo
+
+                IniConsumo = date(date.today().year, date.today().month - 1, 21)
+                IniConsumoBr = IniConsumo.strftime("%d/%m/%Y")
+                Ate = date(date.today().year, date.today().month, data_hoje.day)
+                AteBr = Ate.strftime("%d/%m/%Y")
+
+                FinalConusmo = date(data_hoje.year, data_hoje.month, 20)
+                FinalConusmoBr = FinalConusmo.strftime("%d/%m/%Y")
+
+                r = f"{IniConsumoBr} -- {AteBr} são {Day} dias totalizando: {DayPlAtual:.2f} \n{data_hoje.strftime('%d/%m/%Y')} -- {FinalConusmoBr} são {RestanteDayNovo} totalizando: {DayPlNovo:.2f}.\nO valor final será: {ValorTotal:.2f}.\nCom 10% será: {ValorTotal - (ValorTotal * 0.1):.2f}.\nDesconto de: {ValorTotal * 0.1:.2f}  "
+                resultado_text.delete(1.0, tk.END)  # Limpar o conteúdo atual
+                resultado_text.insert(tk.END, r)
+                return "FIM"
+        else:
+            Day = data_hoje.day + 9
+            DayPlAtual = (data_hoje.day + 9) * globals()[f"plan{pAtual}"]()
+            RestanteDayNovo = 31 - (data_hoje.day + 10)
+            DayPlNovo = (31 - (data_hoje.day + 10)) * globals()[f"plan{pNovo}"]()
+
+            ValorTotal = DayPlAtual + DayPlNovo
+
+            IniConsumo = date(date.today().year, 12, 21)
+            IniConsumoBr = IniConsumo.strftime("%d/%m/%Y")
+            Ate = date(date.today().year, date.today().month, data_hoje.day)
+            AteBr = Ate.strftime("%d/%m/%Y")
+
+            FinalConusmo = date(data_hoje.year, data_hoje.month, 20)
+            FinalConusmoBr = FinalConusmo.strftime("%d/%m/%Y")
+
+            r = f"{IniConsumoBr} -- {AteBr} são {Day} dias totalizando: {DayPlAtual:.2f} \n{data_hoje.strftime('%d/%m/%Y')} -- {FinalConusmoBr} são {RestanteDayNovo} totalizando: {DayPlNovo:.2f}.\nO valor final será: {ValorTotal:.2f}.\nCom 10% será: {ValorTotal - (ValorTotal * 0.1):.2f}.\nDesconto de: {ValorTotal * 0.1:.2f}  "
+            resultado_text.delete(1.0, tk.END)  # Limpar o conteúdo atual
+            resultado_text.insert(tk.END, r)
+            return "FIM"
+
 def venc(pVen, pAtual, pNovo):
         if pVen in ["5", "10"]:
             return Calcularven1(pAtual, pNovo)  # VENCIMENTO 5 OU 10
