@@ -1,5 +1,8 @@
 import calendar
 from datetime import date
+import tkinter as tk
+from tkinter import ttk
+
 
 # Criando o Calendario que não serviu pra krlh nenhum
 def switch_case(month):
@@ -53,9 +56,8 @@ def Calcularven1(pAtual, pNovo):
     FinalConusmo = date(data_hoje.year, data_hoje.month, quantidade_dias)
     FinalConusmoBr = FinalConusmo.strftime("%d/%m/%Y")
 
-    print(
-        f"{IniConsumoBr} -- {AteBr} são {Day} dias totalizando: {DayPlAtual:.2f} \n{data_hoje.strftime('%d/%m/%Y')} -- {FinalConusmoBr} são {RestanteDayNovo} são totalizando: {DayPlNovo:.2f}.\nO valor final será: {ValorTotal:.2f}.\nCom 10% será: {ValorTotal - (ValorTotal * 0.1):.2f}.\nDesconto de: {ValorTotal * 0.1:.2f} ")
-
+    r = f"{IniConsumoBr} -- {AteBr} são {Day} dias totalizando: {DayPlAtual:.2f} \n{data_hoje.strftime('%d/%m/%Y')} -- {FinalConusmoBr} são {RestanteDayNovo} são totalizando: {DayPlNovo:.2f}.\nO valor final será: {ValorTotal:.2f}.\nCom 10% será: {ValorTotal - (ValorTotal * 0.1):.2f}.\nDesconto de: {ValorTotal * 0.1:.2f} "
+    resultado_label.config(text=r)
     return "FIM"
 def Calcularven2(pAtual, pNovo):
     # RETIRANDO UMA DIA DO PLANO ATUAL AQUI POIS ELE ENTRA EM CONTATO ANTES DO VENCIMENTO
@@ -75,9 +77,8 @@ def Calcularven2(pAtual, pNovo):
         FinalConusmo = date(data_hoje.year, data_hoje.month, 10)
         FinalConusmoBr = FinalConusmo.strftime("%d/%m/%Y")
 
-        print(
-            f"{IniConsumoBr} -- {AteBr} são {Day} dias totalizando: {DayPlAtual:.2f} \n{data_hoje.strftime('%d/%m/%Y')} -- {FinalConusmoBr} são {RestanteDayNovo} totalizando: {DayPlNovo:.2f}.\nO valor final será: {ValorTotal:.2f}.\nCom 10% será: {ValorTotal - (ValorTotal * 0.1):.2f}.\nDesconto de: {ValorTotal * 0.1:.2f}  ")
-
+        r = f"{IniConsumoBr} -- {AteBr} são {Day} dias totalizando: {DayPlAtual:.2f} \n{data_hoje.strftime('%d/%m/%Y')} -- {FinalConusmoBr} são {RestanteDayNovo} totalizando: {DayPlNovo:.2f}.\nO valor final será: {ValorTotal:.2f}.\nCom 10% será: {ValorTotal - (ValorTotal * 0.1):.2f}.\nDesconto de: {ValorTotal * 0.1:.2f}  "
+        resultado_label.config(text=r)
         return "FIM"
     # RETIRANDO UMA DIA DO PLANO NOVO AQUI POIS ELE ENTRA EM CONTATO DEPOIS DO VENCIMENTO
     elif data_hoje.day >= 10:
@@ -97,9 +98,8 @@ def Calcularven2(pAtual, pNovo):
         FinalConusmo = date(data_hoje.year + 1 if ProxAtual == 1 else data_hoje.year, ProxAtual, 10)
         FinalConusmoBr = FinalConusmo.strftime("%d/%m/%Y")
 
-        print(
-            f"{IniConsumoBr} -- {AteBr} são {Day} dias totalizando: {DayPlAtual:.2f} \n{data_hoje.strftime('%d/%m/%Y')} -- {FinalConusmoBr} são {RestanteDayNovo} totalizando: {DayPlNovo:.2f}.\nO valor final será: {ValorTotal:.2f}.\nCom 10% será: {ValorTotal - (ValorTotal * 0.1):.2f}.\nDesconto de: {ValorTotal * 0.1:.2f}")
-
+        r = f"{IniConsumoBr} -- {AteBr} são {Day} dias totalizando: {DayPlAtual:.2f} \n{data_hoje.strftime('%d/%m/%Y')} -- {FinalConusmoBr} são {RestanteDayNovo} totalizando: {DayPlNovo:.2f}.\nO valor final será: {ValorTotal:.2f}.\nCom 10% será: {ValorTotal - (ValorTotal * 0.1):.2f}.\nDesconto de: {ValorTotal * 0.1:.2f}"
+        resultado_label.config(text=r)
         return "FIM"
 def Calcularven3(pAtual, pNovo):
     # RETIRANDO UMA DIA DO PLANO ATUAL AQUI POIS ELE ENTRA EM CONTATO ANTES DO VENCIMENTO
@@ -119,8 +119,8 @@ def Calcularven3(pAtual, pNovo):
         FinalConusmo = date(data_hoje.year, data_hoje.month, 20)
         FinalConusmoBr = FinalConusmo.strftime("%d/%m/%Y")
 
-        print(
-            f"{IniConsumoBr} -- {AteBr} são {Day} dias totalizando: {DayPlAtual:.2f} \n{data_hoje.strftime('%d/%m/%Y')} -- {FinalConusmoBr} são {RestanteDayNovo} totalizando: {DayPlNovo:.2f}.\nO valor final será: {ValorTotal:.2f}.\nCom 10% será: {ValorTotal - (ValorTotal * 0.1):.2f}.\nDesconto de: {ValorTotal * 0.1:.2f}  ")
+        r = f"{IniConsumoBr} -- {AteBr} são {Day} dias totalizando: {DayPlAtual:.2f} \n{data_hoje.strftime('%d/%m/%Y')} -- {FinalConusmoBr} são {RestanteDayNovo} totalizando: {DayPlNovo:.2f}.\nO valor final será: {ValorTotal:.2f}.\nCom 10% será: {ValorTotal - (ValorTotal * 0.1):.2f}.\nDesconto de: {ValorTotal * 0.1:.2f}  "
+        resultado_label.config(text=r)
         return "FIM"
 
 
@@ -142,42 +142,9 @@ def Calcularven3(pAtual, pNovo):
         FinalConusmo = date(data_hoje.year + 1 if ProxAtual == 1 else data_hoje.year, ProxAtual, 20)
         FinalConusmoBr = FinalConusmo.strftime("%d/%m/%Y")
 
-        print(
-            f"{IniConsumoBr} -- {AteBr} são {Day} dias totalizando: {DayPlAtual:.2f} \n{data_hoje.strftime('%d/%m/%Y')} -- {FinalConusmoBr} são {RestanteDayNovo} totalizando: {DayPlNovo:.2f}.\nO valor final será: {ValorTotal:.2f}.\nCom 10% será: {ValorTotal - (ValorTotal * 0.1):.2f}.\nDesconto de: {ValorTotal * 0.1:.2f} ")
-
+        r = f"{IniConsumoBr} -- {AteBr} são {Day} dias totalizando: {DayPlAtual:.2f} \n{data_hoje.strftime('%d/%m/%Y')} -- {FinalConusmoBr} são {RestanteDayNovo} totalizando: {DayPlNovo:.2f}.\nO valor final será: {ValorTotal:.2f}.\nCom 10% será: {ValorTotal - (ValorTotal * 0.1):.2f}.\nDesconto de: {ValorTotal * 0.1:.2f} "
+        resultado_label.config(text=r)
         return "FIM"
-
-# SWITCH PARA VENCIMENTO
-def venc(pVen):
-    if pVen in {5, 10}:
-        return Calcularven1(pAtual, pNovo)  # VENCIMENTO 5 OU 10
-    elif pVen in {15, 20}:
-        return Calcularven2(pAtual, pNovo)  # VENCIMENTO 15 OU 20
-    elif pVen in {25, 30}:
-        return Calcularven3(pAtual, pNovo)  # VENCIMENTO 25 OU 30
-    else:
-        return "Opção de vencimento inválida"
-
-# ENTRADA DE DADOS
-while True:
-    pAtual = int(input("Qual seu plano Atual?(250, 350, 450, 600): "))
-    if pAtual in {250, 350, 450, 600}:
-        break
-    else:
-        print("Por favor, insira um plano válido.")
-while True:
-    pNovo = int(input("Qual seu novo plano?(250, 350, 450, 600): "))
-    if pNovo in {250, 350, 450, 600}:
-        break
-    else:
-        print("Por favor, insira um novo plano válido.")
-while True:
-    pVen = int(input("Qual vencimento?(05, 10, 15, 20, 25 ou 30): "))
-    if pVen in {5, 10, 15, 20, 25, 30}:
-        print(venc(pVen))
-        break
-    else:
-        print("Por favor, insira um vencimento válido.")
 
 def MudarVen(pVen, pVenNovo):
 
@@ -253,7 +220,18 @@ def MudarVen(pVen, pVenNovo):
         print(f"{IniVenc21Br} -- {FinalVenc30Br}. São {Qtd} dias -- totalizando: {Valor:.2f}")
 
     return "FIM"
+# SWITCH PARA VENCIMENTO
+def venc(pVen,pAtual,pNovo):
+    if pVen in ["5", "10"]:
+        return Calcularven1(pAtual, pNovo)  # VENCIMENTO 5 OU 10
+    elif pVen in ["15", "20"]:
+        return Calcularven2(pAtual, pNovo)  # VENCIMENTO 15 OU 20
+    elif pVen in ["25", "30"]:
+        return Calcularven3(pAtual, pNovo)  # VENCIMENTO 25 OU 30
+    else:
+        return "Opção de vencimento inválida"
 
+'''
 Escolha = int(input("Deseja mudar de vencimento?:1(SIM) 2(NÃO)"))
 if Escolha == 1:
     while True:
@@ -263,14 +241,37 @@ if Escolha == 1:
             break
         else:
             print("Por favor, insira um vencimento válido.")
-else:print("FIM")
+else:print("FIM")'''
 
+# ENTRADA DE DADOS
+Janela = tk.Tk()
+Janela.title("SISTEMA FINANCIERO")
 
+pAtual = tk.StringVar()
+pNovo = tk.StringVar()
+pVen = tk.StringVar()
 
+pAtualop = ['250', '350', '450', '600']
+pNovoop = ['250', '350', '450', '600']
+pVenop = ['5', '10', '15', '20', '25', '30']
 
+Op1 = ttk.Combobox(Janela, textvariable=pAtual, values=pAtualop)
+Op1.set(pAtualop[0])
+Op1.pack(pady=10)
+Op2 = ttk.Combobox(Janela, textvariable=pNovo, values=pNovoop)
+Op2.set(pNovoop[0])
+Op2.pack(pady=10)
+Op3 = ttk.Combobox(Janela, textvariable=pVen, values=pVenop)
+Op3.set(pVenop[0])
+Op3.pack(pady=10)
 
+resultado_label = tk.Label(Janela, text=f"Resultado: ")
+resultado_label.pack(pady=10)
 
-#TESTE
+calcular_botao = tk.Button(Janela, text="Calcular", command=lambda: venc(pVen.get(), pAtual.get(), pNovo.get()))
+calcular_botao.pack(pady=10)
+
+Janela.mainloop()
 
 
 
