@@ -264,12 +264,4 @@ if Escolha == 1:
         else:
             print("Por favor, insira um vencimento válido.")
 else:print("FIM")
-
-
-
-
-
-
-
-
-
+# teste de alteração
