@@ -39,25 +39,40 @@ data_hoje = date.today()  ##PEGANDO LOGO A DATA DE HOJE PRA SAPORRA TODA
 
 # FUNÇÕES DE CACULO DE VENCIMENTO
 def Calcularven1(pAtual, pNovo):
-    Day = data_hoje.day - 1
-    DayPlAtual = globals()[f"plan{pAtual}"]() * (data_hoje.day - 1)
-    RestanteDayNovo = 31 - data_hoje.day
-    DayPlNovo = globals()[f"plan{pNovo}"]() * (31 - data_hoje.day)
+    if data_hoje.day != 1:
+            Day = data_hoje.day - 1
+            DayPlAtual = globals()[f"plan{pAtual}"]() * (data_hoje.day - 1)
+            RestanteDayNovo = 31 - data_hoje.day
+            DayPlNovo = globals()[f"plan{pNovo}"]() * (31 - data_hoje.day)
 
-    ValorTotal = DayPlAtual + DayPlNovo
+            ValorTotal = DayPlAtual + DayPlNovo
 
-    IniConsumo = date(date.today().year, date.today().month, 1)
-    IniConsumoBr = IniConsumo.strftime("%d/%m/%Y")
-    Ate = date(date.today().year, date.today().month, Day)
-    AteBr = Ate.strftime("%d/%m/%Y")
+            IniConsumo = date(date.today().year, date.today().month, 1)
+            IniConsumoBr = IniConsumo.strftime("%d/%m/%Y")
+            Ate = date(date.today().year, date.today().month, Day)
+            AteBr = Ate.strftime("%d/%m/%Y")
 
-    # SLA É A VARIAVEL QUE EU NÃO FAÇO A MENOR IDEIA DO QUE FAZ, MAIS EU SÓ PRECISO DA QUANTIDADE DE DIAS ENTT FDS
-    SLA, quantidade_dias = calendar.monthrange(data_hoje.year, data_hoje.month)
-    FinalConusmo = date(data_hoje.year, data_hoje.month, quantidade_dias)
-    FinalConusmoBr = FinalConusmo.strftime("%d/%m/%Y")
+            # SLA É A VARIAVEL QUE EU NÃO FAÇO A MENOR IDEIA DO QUE FAZ, MAIS EU SÓ PRECISO DA QUANTIDADE DE DIAS ENTT FDS
+            SLA, quantidade_dias = calendar.monthrange(data_hoje.year, data_hoje.month)
+            FinalConusmo = date(data_hoje.year, data_hoje.month, quantidade_dias)
+            FinalConusmoBr = FinalConusmo.strftime("%d/%m/%Y")
 
-    r = f"{IniConsumoBr} -- {AteBr} são {Day} dias totalizando: {DayPlAtual:.2f} \n{data_hoje.strftime('%d/%m/%Y')} -- {FinalConusmoBr} são {RestanteDayNovo} são totalizando: {DayPlNovo:.2f}.\nO valor final será: {ValorTotal:.2f}.\nCom 10% será: {ValorTotal - (ValorTotal * 0.1):.2f}.\nDesconto de: {ValorTotal * 0.1:.2f} "
-    resultado_label.config(text=r)
+            r = f"{IniConsumoBr} -- {AteBr} são {Day} dias totalizando: {DayPlAtual:.2f} \n{data_hoje.strftime('%d/%m/%Y')} -- {FinalConusmoBr} são {RestanteDayNovo} são totalizando: {DayPlNovo:.2f}.\nO valor final será: {ValorTotal:.2f}.\nCom 10% será: {ValorTotal - (ValorTotal * 0.1):.2f}.\nDesconto de: {ValorTotal * 0.1:.2f} "
+            resultado_text.delete(1.0, tk.END)  # Limpar o conteúdo atual
+            resultado_text.insert(tk.END, r)
+    else:
+        RestanteDayNovo = 31 - data_hoje.day
+        DayPlNovo = globals()[f"plan{pNovo}"]() * (31 - data_hoje.day)
+
+        # SLA É A VARIAVEL QUE EU NÃO FAÇO A MENOR IDEIA DO QUE FAZ, MAIS EU SÓ PRECISO DA QUANTIDADE DE DIAS ENTT FDS
+        SLA, quantidade_dias = calendar.monthrange(data_hoje.year, data_hoje.month)
+        FinalConusmo = date(data_hoje.year, data_hoje.month, quantidade_dias)
+        FinalConusmoBr = FinalConusmo.strftime("%d/%m/%Y")
+
+        r = f"{data_hoje.strftime('%d/%m/%Y')} -- {FinalConusmoBr} são {RestanteDayNovo} dias totalizando: {DayPlNovo:.2f}.\nO valor final será: {DayPlNovo:.2f}.\nCom 10% será: {DayPlNovo - (DayPlNovo * 0.1):.2f}.\nDesconto de: {DayPlNovo * 0.1:.2f} "
+        resultado_text.delete(1.0, tk.END)  # Limpar o conteúdo atual
+        resultado_text.insert(tk.END, r)
+
     return "FIM"
 def Calcularven2(pAtual, pNovo):
     # RETIRANDO UMA DIA DO PLANO ATUAL AQUI POIS ELE ENTRA EM CONTATO ANTES DO VENCIMENTO
@@ -78,7 +93,8 @@ def Calcularven2(pAtual, pNovo):
         FinalConusmoBr = FinalConusmo.strftime("%d/%m/%Y")
 
         r = f"{IniConsumoBr} -- {AteBr} são {Day} dias totalizando: {DayPlAtual:.2f} \n{data_hoje.strftime('%d/%m/%Y')} -- {FinalConusmoBr} são {RestanteDayNovo} totalizando: {DayPlNovo:.2f}.\nO valor final será: {ValorTotal:.2f}.\nCom 10% será: {ValorTotal - (ValorTotal * 0.1):.2f}.\nDesconto de: {ValorTotal * 0.1:.2f}  "
-        resultado_label.config(text=r)
+        resultado_text.delete(1.0, tk.END)  # Limpar o conteúdo atual
+        resultado_text.insert(tk.END, r)
         return "FIM"
     # RETIRANDO UMA DIA DO PLANO NOVO AQUI POIS ELE ENTRA EM CONTATO DEPOIS DO VENCIMENTO
     elif data_hoje.day >= 10:
@@ -99,7 +115,8 @@ def Calcularven2(pAtual, pNovo):
         FinalConusmoBr = FinalConusmo.strftime("%d/%m/%Y")
 
         r = f"{IniConsumoBr} -- {AteBr} são {Day} dias totalizando: {DayPlAtual:.2f} \n{data_hoje.strftime('%d/%m/%Y')} -- {FinalConusmoBr} são {RestanteDayNovo} totalizando: {DayPlNovo:.2f}.\nO valor final será: {ValorTotal:.2f}.\nCom 10% será: {ValorTotal - (ValorTotal * 0.1):.2f}.\nDesconto de: {ValorTotal * 0.1:.2f}"
-        resultado_label.config(text=r)
+        resultado_text.delete(1.0, tk.END)  # Limpar o conteúdo atual
+        resultado_text.insert(tk.END, r)
         return "FIM"
 def Calcularven3(pAtual, pNovo):
     # RETIRANDO UMA DIA DO PLANO ATUAL AQUI POIS ELE ENTRA EM CONTATO ANTES DO VENCIMENTO
@@ -120,7 +137,8 @@ def Calcularven3(pAtual, pNovo):
         FinalConusmoBr = FinalConusmo.strftime("%d/%m/%Y")
 
         r = f"{IniConsumoBr} -- {AteBr} são {Day} dias totalizando: {DayPlAtual:.2f} \n{data_hoje.strftime('%d/%m/%Y')} -- {FinalConusmoBr} são {RestanteDayNovo} totalizando: {DayPlNovo:.2f}.\nO valor final será: {ValorTotal:.2f}.\nCom 10% será: {ValorTotal - (ValorTotal * 0.1):.2f}.\nDesconto de: {ValorTotal * 0.1:.2f}  "
-        resultado_label.config(text=r)
+        resultado_text.delete(1.0, tk.END)  # Limpar o conteúdo atual
+        resultado_text.insert(tk.END, r)
         return "FIM"
 
 
@@ -143,10 +161,19 @@ def Calcularven3(pAtual, pNovo):
         FinalConusmoBr = FinalConusmo.strftime("%d/%m/%Y")
 
         r = f"{IniConsumoBr} -- {AteBr} são {Day} dias totalizando: {DayPlAtual:.2f} \n{data_hoje.strftime('%d/%m/%Y')} -- {FinalConusmoBr} são {RestanteDayNovo} totalizando: {DayPlNovo:.2f}.\nO valor final será: {ValorTotal:.2f}.\nCom 10% será: {ValorTotal - (ValorTotal * 0.1):.2f}.\nDesconto de: {ValorTotal * 0.1:.2f} "
-        resultado_label.config(text=r)
+        resultado_text.delete(1.0, tk.END)  # Limpar o conteúdo atual
+        resultado_text.insert(tk.END, r)
         return "FIM"
-
-def MudarVen(pVen, pVenNovo):
+def venc(pVen, pAtual, pNovo):
+        if pVen in ["5", "10"]:
+            return Calcularven1(pAtual, pNovo)  # VENCIMENTO 5 OU 10
+        elif pVen in ["15", "20"]:
+            return Calcularven2(pAtual, pNovo)  # VENCIMENTO 15 OU 20
+        elif pVen in ["25", "30"]:
+            return Calcularven3(pAtual, pNovo)  # VENCIMENTO 25 OU 30
+        else:
+            return "Opção de vencimento inválida"
+def MudarVen(vAtual, vNovo,vPlano):
 
     # QUANTIDADE DE DIAS NO MÊS
 
@@ -179,57 +206,70 @@ def MudarVen(pVen, pVenNovo):
 
     # CONDIÇÕES DE TROCA DE VENCIMENTO
 
-    if (pVen == 5 or pVen == 10) and (pVenNovo == 5 or pVenNovo == 10):
-        print(f"NÃO TERÁ MUDANÇA NO VALOR DA FATURA")
+    if (vAtual == '5' or vAtual == '10') and (vNovo == '5' or vNovo == '10'):
+        r = f"NÃO TERÁ MUDANÇA NO VALOR DA FATURA"
+        vresultado_text.delete(1.0, tk.END)  # Limpar o conteúdo atual
+        vresultado_text.insert(tk.END, r)
 
-    if (pVen == 5 or pVen == 10) and (pVenNovo == 15 or pVenNovo == 20):
+    if (vAtual == '5' or vAtual == '10') and (vNovo == '15' or vNovo == '20'):
         QtdDias = FinalVenc10 - IniVenc01
-        Valor = QtdDias.days * globals()[f"plan{pAtual}"]()
-        print(f"{IniVenc01Br} -- {FinalVenc10Br}. São {QtdDias.days} dias -- totalizando: {Valor:.2f}")
+        Valor = QtdDias.days * globals()[f"plan{vPlano}"]()
+        r = f"{IniVenc01Br} -- {FinalVenc10Br}. São {QtdDias.days} dias -- totalizando: {Valor:.2f}\nVencimento mais proximo:\n{IniVenc01Br} -- {date(data_hoje.year,data_hoje.month,10).strftime('%d/%m/%Y')}. São {QtdDias.days-30} dias -- totalizando: {(QtdDias.days-30) * globals()[f'plan{vPlano}']():.2f}"
+        vresultado_text.delete(1.0, tk.END)  # Limpar o conteúdo atual
+        vresultado_text.insert(tk.END, r)
 
-    elif (pVen == 5 or pVen == 10) and (pVenNovo == 25 or pVenNovo == 30):
+    elif (vAtual == '5' or vAtual == '10') and (vNovo == '25' or vNovo == '30'):
         QtdDias = FinalVenc20 - IniVenc01
-        Valor = QtdDias.days * globals()[f"plan{pAtual}"]()
-        print(f"{IniVenc01Br} -- {FinalVenc20Br}. São {QtdDias.days} dias -- totalizando: {Valor:.2f}")
+        Valor = QtdDias.days * globals()[f"plan{vPlano}"]()
+        r = f"{IniVenc01Br} -- {FinalVenc20Br}. São {QtdDias.days} dias -- totalizando: {Valor:.2f}\nVencimento mais proximo:\n{IniVenc01Br} -- {date(data_hoje.year,data_hoje.month,20).strftime('%d/%m/%Y')}. São {QtdDias.days-30} dias -- totalizando: {(QtdDias.days-30) * globals()[f'plan{vPlano}']():.2f}"
+        vresultado_text.delete(1.0, tk.END)  # Limpar o conteúdo atual
+        vresultado_text.insert(tk.END, r)
 
     # VENCIMENTO 15 OU 20
 
-    elif (pVen == 15 or pVen == 20) and (pVenNovo == 15 or pVenNovo == 20):
-        print(f"NÃO TERÁ MUDANÇA NO VALOR DA FATURA")
-    elif (pVen == 15 or pVen == 20) and (pVenNovo == 25 or pVenNovo == 30):
-        Qtd = 10
-        Valor = Qtd * globals()[f"plan{pAtual}"]()
-        print(f"{IniVenc11Br} -- {FinalVenc20Br}. São {Qtd} dias -- totalizando: {Valor:.2f}")
-    elif (pVen == 15 or pVen == 20) and (pVenNovo == 5 or pVenNovo == 10):
+    elif (vAtual == '15' or vAtual == '20') and (vNovo == '15' or vNovo == '20'):
+        r = f"NÃO TERÁ MUDANÇA NO VALOR DA FATURA"
+        vresultado_text.delete(1.0, tk.END)  # Limpar o conteúdo atual
+        vresultado_text.insert(tk.END, r)
+
+    elif (vAtual == '15' or vAtual == '20') and (vNovo == '25' or vNovo == '30'):
+        Qtd = 40
+        Valor = Qtd * globals()[f"plan{vPlano}"]()
+        r = f"{IniVenc11Br} -- {FinalVenc20Br}. São {Qtd} dias -- totalizando: {Valor:.2f}\nVencimento mais proximo:\n{IniVenc11Br} -- {date(data_hoje.year,data_hoje.month,20).strftime('%d/%m/%Y')}. São {Qtd-30} dias -- totalizando:  {(Qtd-30) * globals()[f'plan{vPlano}']():.2f}"
+        vresultado_text.delete(1.0, tk.END)  # Limpar o conteúdo atual
+        vresultado_text.insert(tk.END, r)
+
+    elif (vAtual == '15' or vAtual == '20') and (vNovo == '5' or vNovo == '10'):
         Qtd = 20
-        Valor = Qtd * globals()[f"plan{pAtual}"]()
-        print(f"{IniVenc11Br} -- {FinalVenc30Br}. São {Qtd} dias -- totalizando: {Valor:.2f}")
+        Valor = Qtd * globals()[f"plan{vPlano}"]()
+        r = f"{IniVenc11Br} -- {FinalVenc30Br}. São {Qtd} dias -- totalizando: {Valor:.2f}"
+        vresultado_text.delete(1.0, tk.END)  # Limpar o conteúdo atual
+        vresultado_text.insert(tk.END, r)
 
     # VENCIMENTO 25 OU 30
 
-    elif (pVen == 25 or pVen == 30) and (pVenNovo == 25 or pVenNovo == 30):
-        print(f"NÃO TERÁ MUDANÇA NO VALOR DA FATURA")
-    elif (pVen == 25 or pVen == 30) and (pVenNovo == 15 or pVenNovo == 20):
-        Qtd = 20
-        Valor = Qtd * globals()[f"plan{pAtual}"]()
-        print(f"{IniVenc21Br} -- {FinalVenc10Br}. São {Qtd} dias -- totalizando: {Valor:.2f}")
+    elif (vAtual == '25' or vAtual == '30') and (vNovo == '25' or vNovo == '30'):
+        r = f"NÃO TERÁ MUDANÇA NO VALOR DA FATURA"
+        vresultado_text.delete(1.0, tk.END)  # Limpar o conteúdo atual
+        vresultado_text.insert(tk.END, r)
 
-    elif (pVen == 25 or pVen == 30) and (pVenNovo == 5 or pVenNovo == 10):
+    elif (vAtual == '25' or vAtual == '30') and (vNovo == '15' or vNovo == '20'):
+        Qtd = 20
+        Valor = Qtd * globals()[f"plan{vPlano}"]()
+        r = f"{IniVenc21Br} -- {FinalVenc10Br}. São {Qtd} dias -- totalizando: {Valor:.2f}"
+        vresultado_text.delete(1.0, tk.END)  # Limpar o conteúdo atual
+        vresultado_text.insert(tk.END, r)
+
+
+    elif (vAtual == '25' or vAtual == '30') and (vNovo == '5' or vNovo == '10'):
         Qtd = 10
-        Valor = Qtd * globals()[f"plan{pAtual}"]()
-        print(f"{IniVenc21Br} -- {FinalVenc30Br}. São {Qtd} dias -- totalizando: {Valor:.2f}")
+        Valor = Qtd * globals()[f"plan{vPlano}"]()
+        r = f"{IniVenc21Br} -- {FinalVenc30Br}. São {Qtd} dias -- totalizando: {Valor:.2f}"
+        vresultado_text.delete(1.0, tk.END)  # Limpar o conteúdo atual
+        vresultado_text.insert(tk.END, r)
 
     return "FIM"
-# SWITCH PARA VENCIMENTO
-def venc(pVen,pAtual,pNovo):
-    if pVen in ["5", "10"]:
-        return Calcularven1(pAtual, pNovo)  # VENCIMENTO 5 OU 10
-    elif pVen in ["15", "20"]:
-        return Calcularven2(pAtual, pNovo)  # VENCIMENTO 15 OU 20
-    elif pVen in ["25", "30"]:
-        return Calcularven3(pAtual, pNovo)  # VENCIMENTO 25 OU 30
-    else:
-        return "Opção de vencimento inválida"
+
 
 '''
 Escolha = int(input("Deseja mudar de vencimento?:1(SIM) 2(NÃO)"))
@@ -242,10 +282,10 @@ if Escolha == 1:
         else:
             print("Por favor, insira um vencimento válido.")
 else:print("FIM")'''
-
 # ENTRADA DE DADOS
 Janela = tk.Tk()
-Janela.title("SISTEMA FINANCIERO")
+Janela.title("SISTEMA FINANCEIRO")
+Janela.geometry("550x600")
 
 pAtual = tk.StringVar()
 pNovo = tk.StringVar()
@@ -255,21 +295,52 @@ pAtualop = ['250', '350', '450', '600']
 pNovoop = ['250', '350', '450', '600']
 pVenop = ['5', '10', '15', '20', '25', '30']
 
-Op1 = ttk.Combobox(Janela, textvariable=pAtual, values=pAtualop)
+Frame1 = tk.Frame(Janela, borderwidth=2, relief="solid")
+Frame1.pack(side="left", padx=10, pady=10)
+
+Op1 = ttk.Combobox(Frame1,textvariable=pAtual, values=pAtualop, width=35)
 Op1.set(pAtualop[0])
 Op1.pack(pady=10)
-Op2 = ttk.Combobox(Janela, textvariable=pNovo, values=pNovoop)
+Op2 = ttk.Combobox( Frame1,textvariable=pNovo, values=pNovoop, width=35)
 Op2.set(pNovoop[0])
 Op2.pack(pady=10)
-Op3 = ttk.Combobox(Janela, textvariable=pVen, values=pVenop)
+Op3 = ttk.Combobox(Frame1, textvariable=pVen, values=pVenop, width=35)
 Op3.set(pVenop[0])
 Op3.pack(pady=10)
 
-resultado_label = tk.Label(Janela, text=f"Resultado: ")
-resultado_label.pack(pady=10)
-
-calcular_botao = tk.Button(Janela, text="Calcular", command=lambda: venc(pVen.get(), pAtual.get(), pNovo.get()))
+resultado_text = tk.Text(Frame1, wrap=tk.WORD, width=30, height=20)
+resultado_text.pack(pady=10)
+calcular_botao = tk.Button(Frame1, text="Calcular", command=lambda: venc(pVen.get(), pAtual.get(),pNovo.get()))
 calcular_botao.pack(pady=10)
+#====================================================================================================================
+
+Frame2 = tk.Frame(Janela, borderwidth=2, relief="solid")
+Frame2.pack(side="left", padx=10, pady=10)
+
+vAtual = tk.StringVar()
+vNovo = tk.StringVar()
+vPlano = tk.StringVar()
+
+Plano = ['250', '350', '450', '600']
+vNovoop = ['5', '10', '15', '20', '25', '30']
+vAtualop= ['5', '10', '15', '20', '25', '30']
+
+OpV1 = ttk.Combobox(Frame2,textvariable=vAtual, values=vAtualop, width=35)
+OpV1.set(vAtualop[0])
+OpV1.pack(pady=10)
+OpV2 = ttk.Combobox( Frame2,textvariable=vNovo, values=vNovoop, width=35)
+OpV2.set(vNovoop[0])
+OpV2.pack(pady=10)
+OpV3 = ttk.Combobox(Frame2, textvariable=vPlano, values=Plano, width=35)
+OpV3.set(Plano[0])
+OpV3.pack(pady=10)
+
+vresultado_text = tk.Text(Frame2, wrap=tk.WORD, width=30, height=20)
+vresultado_text.pack(pady=10)
+
+vcalcular_botao = tk.Button(Frame2, text="Calcular", command=lambda: MudarVen(vAtual.get(),vNovo.get(),vPlano.get()))
+vcalcular_botao.pack(pady=10)
+
 
 Janela.mainloop()
 
